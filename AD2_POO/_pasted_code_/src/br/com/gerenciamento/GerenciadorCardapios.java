@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Prato.Prato;
 import br.com.cardapio.Cardapio;
 
 public class GerenciadorCardapios {
@@ -21,7 +22,8 @@ public class GerenciadorCardapios {
         for (int i = 0; i < unidades; i++) {
             System.out.print("Arquivo da Unidade " + (i + 1) + ": ");
             String arquivo = scanner.nextLine();
-            try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            // Adicionei o caminho do arquivo para garantir que o arquivo seja encontrado em "AD2_POO/gerenciamento/" + arquivo
+            try (BufferedReader br = new BufferedReader(new FileReader("AD2_POO/gerenciamento/" + arquivo))) {
                 String cidade = br.readLine().trim().split(" ")[1]; // Ajuste no trim para garantir que espaços extras não sejam um problema
                 Cardapio cardapio = new Cardapio(cidade);
                 String line;
@@ -29,7 +31,7 @@ public class GerenciadorCardapios {
                     String[] partes = line.split(";");
                     if (partes.length == 3) { // Garante que a linha está no formato esperado
                         Prato prato = new Prato(partes[0].trim(), Float.parseFloat(partes[1].trim()), partes[2].trim());
-                        cardapio.adicionarPrato(prato);
+                        cardapio.adicionarPrato(prato); // Adicionei o import para Prato na linha 10
                     }
                 }
                 cardapios.add(cardapio);

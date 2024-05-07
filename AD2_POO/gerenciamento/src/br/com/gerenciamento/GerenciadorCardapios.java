@@ -20,7 +20,8 @@ public class GerenciadorCardapios {
         for (int i = 0; i < unidades; i++) {
             System.out.print("Arquivo da Unidade " + (i + 1) + ": ");
             String arquivo = scanner.nextLine();
-            try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            // Adicionei o caminho do arquivo para garantir que o arquivo seja encontrado em "AD2_POO/gerenciamento/" + arquivo
+            try (BufferedReader br = new BufferedReader(new FileReader("AD2_POO/gerenciamento/" + arquivo))) {
                 String cidade = br.readLine().trim().split(" ")[1];
                 Cardapio cardapio = new Cardapio(cidade);
                 String line = br.readLine();
@@ -67,6 +68,12 @@ public class GerenciadorCardapios {
             // Perguntar ao usuário se deseja ver os detalhes de Prato Principal ou outras categorias
             System.out.print("Exibir Detalhes (s/n)? ");
             String opcaoDetalhes = scanner.nextLine();
+
+            while (!opcaoDetalhes.equalsIgnoreCase("s") && !opcaoDetalhes.equalsIgnoreCase("n")) {
+                System.out.println("Opção inválida. Tente novamente.");
+                System.out.print("Exibir Detalhes (s/n)? ");
+                opcaoDetalhes = scanner.nextLine();
+            }
             if (opcaoDetalhes.equalsIgnoreCase("s")) {
                 for (Cardapio cardapio : cardapios) {
                     cardapio.exibirDetalhesCategoria(categoria);
